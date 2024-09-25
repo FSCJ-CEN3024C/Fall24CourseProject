@@ -3,10 +3,12 @@ package edu.fscj.cen3024c.financialclarity;
 // Entity and repostirory imports
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
+import edu.fscj.cen3024c.financialclarity.entity.RepaymentPlan;
 import edu.fscj.cen3024c.financialclarity.entity.Users;
 import edu.fscj.cen3024c.financialclarity.repository.ExpensesRepository;
 import edu.fscj.cen3024c.financialclarity.repository.IncomeRepository;
 import edu.fscj.cen3024c.financialclarity.repository.UsersRepository;
+import edu.fscj.cen3024c.financialclarity.repository.RepaymentPlanRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +29,8 @@ public class FinancialClarityApplication implements CommandLineRunner {
 	private IncomeRepository incomeRepository;
 	@Autowired
 	private ExpensesRepository expensesRepository;
+	@Autowired
+	private RepaymentPlanRepository repaymentPlanRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinancialClarityApplication.class, args);
@@ -55,12 +59,20 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		expense1.setAmount(7.99f);
 		expensesRepository.save(expense1);
 
+		RepaymentPlan repaymentPlan = new RepaymentPlan();
+		repaymentPlan.setName("Auto Loan Payment");
+		repaymentPlan.setTotalExpense(19999.99f);
+		repaymentPlan.setPayment(450.00f);
+		repaymentPlan.setTimeLine("40 months");
+		repaymentPlan.setCategory("Auto");
+
 
 
 		// Call the findAll() method to test it
 		List<Users> users = usersRepository.findAll();
 		List<Expenses> expenses = expensesRepository.findAll();
 		List<Income> incomes = incomeRepository.findAll();
+		List<RepaymentPlan> repaymentPlans = repaymentPlanRepository.findAll();
 
 		// Print the results to verify
 		System.out.println("All users in the database:");
@@ -71,5 +83,8 @@ public class FinancialClarityApplication implements CommandLineRunner {
 
 		System.out.println("All incomes in the database:");
 		incomes.forEach(income -> System.out.println(income.getName() + " " + income.getAmount()));
+
+		System.out.println("All repayment plan in the database:");
+		incomes.forEach(income -> System.out.println(repaymentPlan.getName() + " " + repaymentPlan.getTotalExpense()));
 	}
 }
