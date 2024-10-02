@@ -28,7 +28,7 @@ public class RepaymentPlan {
     private String category;
 
     @Column(nullable = false, unique = true)
-    private Long description;
+    private String name;
 
 
     // Getters and Setters
@@ -50,6 +50,13 @@ public class RepaymentPlan {
         this.userId = userId;
     }
 
+    public Float getTotalExpense() {
+        return totalExpense;
+    }
+
+    public void setTotalExpense(Float totalExpense) {
+        this.totalExpense = totalExpense;
+    }
     //Amount
     public Float getPayment() {
         return payment;
@@ -76,12 +83,12 @@ public class RepaymentPlan {
         this.category = category;
     }
 
-    public Long getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(Long description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

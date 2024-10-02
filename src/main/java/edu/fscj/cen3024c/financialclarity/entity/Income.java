@@ -19,8 +19,6 @@ public class Income {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String category;
 
 
     // Getters and Setters
@@ -36,8 +34,6 @@ public class Income {
     //Name
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
-    //Category
-    public String getCategory() {return category;}
-    public void setCategory(String category) {this.category = category;}
+
 
 }

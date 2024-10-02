@@ -17,7 +17,8 @@ public class Expenses {
     private Float amount;
 
     @Column(nullable = false, unique = true)
-    private String category;
+    private String name;
+
 
 
     // Getters and Setters
@@ -49,11 +50,11 @@ public class Expenses {
     }
 
     //Category
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
     public void setName(String category) {
-        this.category = category;
+        this.name = name;
     }
 }
