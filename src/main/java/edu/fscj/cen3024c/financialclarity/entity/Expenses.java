@@ -54,7 +54,7 @@ public class Expenses {
         return name;
     }
 
-    public void setName(String category) {
+    public void setName(String name) {
         this.name = name;
     }
 }
