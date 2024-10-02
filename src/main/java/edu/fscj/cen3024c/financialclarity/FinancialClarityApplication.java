@@ -10,12 +10,17 @@ import edu.fscj.cen3024c.financialclarity.repository.IncomeRepository;
 import edu.fscj.cen3024c.financialclarity.repository.UsersRepository;
 import edu.fscj.cen3024c.financialclarity.repository.RepaymentPlanRepository;
 
+import edu.fscj.cen3024c.financialclarity.entity.Budget;
+import edu.fscj.cen3024c.financialclarity.repository.BudgetRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -32,6 +37,9 @@ public class FinancialClarityApplication implements CommandLineRunner {
 	@Autowired
 	private RepaymentPlanRepository repaymentPlanRepository;
 
+	@Autowired
+	private BudgetRepository budgetRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(FinancialClarityApplication.class, args);
 	}
@@ -39,7 +47,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
+		// Create User
 		Users user1 = new Users();
 		user1.setUsername("Cole");
 		user1.setAge(20);
@@ -48,6 +56,16 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		user1.setTotalIncome("1000");
 		user1.setTotalExpences("1000");
 		usersRepository.save(user1);
+
+
+		// Create Budget
+		Budget budget = new Budget();
+		budget.setUserId(user1.getId()); // Set the userId to the id of the saved user
+		budget.setBudgetName("Monthly Budget");
+		budget.setTimeCreate(new Date()); // Current date and time
+		budgetRepository.save(budget);
+
+
 
 		Income income1 = new Income();
 		income1.setName("Paycheck 1");
@@ -74,9 +92,21 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		List<Income> incomes = incomeRepository.findAll();
 		List<RepaymentPlan> repaymentPlans = repaymentPlanRepository.findAll();
 
-		// Print the results to verify
+
+
+
+		// Print all Users
+		List<Users> users = usersRepository.findAll();
 		System.out.println("All users in the database:");
 		users.forEach(user -> System.out.println(user.getUsername()));
+
+
+
+		// Print all Budgets
+		List<Budget> budgets = budgetRepository.findAll();
+		System.out.println("All Budgets in the database:");
+		budgets.forEach(b -> System.out.println(b.getBudgetName()));
+
 
 		System.out.println("All expenses in the database:");
 		expenses.forEach(expense -> System.out.println(expense.getName() + " " + expense.getAmount()));
@@ -86,5 +116,6 @@ public class FinancialClarityApplication implements CommandLineRunner {
 
 		System.out.println("All repayment plan in the database:");
 		incomes.forEach(income -> System.out.println(repaymentPlan.getName() + " " + repaymentPlan.getTotalExpense()));
+
 	}
 }

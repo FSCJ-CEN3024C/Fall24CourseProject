@@ -12,6 +12,10 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer budgetId;
 
+//    @OneToOne
+//    @JoinColumn(name = "userId", nullable = false, unique = true)
+//    private Users user;
+
     @Column(nullable = false, unique = true)
     private Integer userId;
 
