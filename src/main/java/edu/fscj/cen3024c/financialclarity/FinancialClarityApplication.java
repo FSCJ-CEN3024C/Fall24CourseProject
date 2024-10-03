@@ -4,10 +4,10 @@ package edu.fscj.cen3024c.financialclarity;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.entity.RepaymentPlan;
-import edu.fscj.cen3024c.financialclarity.entity.Users;
+import edu.fscj.cen3024c.financialclarity.entity.User;
 import edu.fscj.cen3024c.financialclarity.repository.ExpensesRepository;
 import edu.fscj.cen3024c.financialclarity.repository.IncomeRepository;
-import edu.fscj.cen3024c.financialclarity.repository.UsersRepository;
+import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.repository.RepaymentPlanRepository;
 
 import edu.fscj.cen3024c.financialclarity.entity.Budget;
@@ -29,7 +29,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 
 
 	@Autowired
-	private UsersRepository usersRepository;
+	private UserRepository usersRepository;
 	@Autowired
 	private IncomeRepository incomeRepository;
 	@Autowired
@@ -48,7 +48,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		// Create User
-		Users user1 = new Users();
+		User user1 = new User();
 		user1.setUsername("Cole");
 		user1.setAge(20);
 		user1.setEmail("test@example.com");
@@ -89,7 +89,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 
 
 		// Print all Users
-		List<Users> users = usersRepository.findAll();
+		List<User> users = usersRepository.findAll();
 		System.out.println("All users in the database:");
 		users.forEach(user -> System.out.println(user.getUsername()));
 
