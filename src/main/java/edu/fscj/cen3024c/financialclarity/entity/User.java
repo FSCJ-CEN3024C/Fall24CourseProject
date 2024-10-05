@@ -28,7 +28,19 @@ public class User {
     @Column(nullable = false, unique = true)
     private String totalExpences;
 
+    public User() {
+        // Default constructor
+    }
 
+    public User(String username, Integer age, String email, String password, String totalIncome, String totalExpences) {
+        this.username = username;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.totalIncome = totalIncome;
+        this.totalExpences = totalExpences;
+
+    }
 
     // Getters and Setters
     //ID
