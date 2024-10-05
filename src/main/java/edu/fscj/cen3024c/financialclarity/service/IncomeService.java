@@ -11,5 +11,5 @@ public class IncomeService {
     @Autowired
     private IncomeRepository incomeRepository;
 
-    public Income findIncomeById(int incomeId) {return incomeRepository.findByIncomeId(incomeId);}
+    public Income findIncomeById(Integer incomeId) {return incomeRepository.findByIncomeId(incomeId);}
 }

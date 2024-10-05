@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/expences")
+@RequestMapping("/expenses")
 public class ExpensesController {
     @Autowired
     private ExpenseService expenseService;
 
-    @GetMapping("/{expencesId}")
-    public ResponseEntity<Expenses> getIncome(@PathVariable Integer expencesId) {
+    @GetMapping("/{expensesId}")
+    public ResponseEntity<Expenses> getIncome(@PathVariable Integer expensesId) {
 
-        Expenses expenses = expenseService.findByExpencesId(expencesId);
+        Expenses expenses = expenseService.findByExpencesId(expensesId);
         return ResponseEntity.ok(expenses);
     }
 
