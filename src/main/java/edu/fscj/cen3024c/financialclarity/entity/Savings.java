@@ -1,16 +1,13 @@
-package edu.fscj.cen3024c.financialclarity;
+package edu.fscj.cen3024c.financialclarity.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "savings")
-public class Saving {
+public class Savings {
     @Id
-    @Column(name = "savingsgoalid", nullable = false)
-    private Integer id;
+    @Column(name = "savingsId", nullable = false)
+    private Integer savingsId;
 
     @Column(name = "savingsamount")
     private Integer savingsamount;
@@ -21,12 +18,14 @@ public class Saving {
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
 
+
+
     public Integer getId() {
-        return id;
+        return savingsId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.savingsId = id;
     }
 
     public Integer getSavingsamount() {
