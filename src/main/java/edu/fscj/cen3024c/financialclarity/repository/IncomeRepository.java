@@ -10,4 +10,7 @@ import java.util.List;
 public interface IncomeRepository extends JpaRepository<Income, Integer> {
     // Find all Incomes
     List<Income> findAll();
+
+    // Update this line to match the property name in the Income entity
+    Income findByIncomeId(Integer incomeId);
 }

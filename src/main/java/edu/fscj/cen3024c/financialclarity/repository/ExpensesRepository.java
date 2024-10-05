@@ -10,4 +10,6 @@ import java.util.List;
 public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
     // Find all Users
     List<Expenses> findAll();
+
+    Expenses findByExpenseId(Integer expenseId);
 }
