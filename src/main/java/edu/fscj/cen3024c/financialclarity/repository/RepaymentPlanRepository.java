@@ -10,4 +10,6 @@ import java.util.List;
 public interface RepaymentPlanRepository extends JpaRepository<RepaymentPlan, Integer> {
     // Find all Incomes
     List<RepaymentPlan> findAll();
+    RepaymentPlan findByRepaymentId(Integer expenseId);
+
 }
