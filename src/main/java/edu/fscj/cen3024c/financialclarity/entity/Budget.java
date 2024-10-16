@@ -10,11 +10,7 @@ public class Budget {
     //Defining the columns in the database
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer budgetId;
-
-//    @OneToOne
-//    @JoinColumn(name = "userId", nullable = false, unique = true)
-//    private Users user;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
     private Integer userId;
@@ -23,17 +19,17 @@ public class Budget {
     private String budgetName;
 
     @Column(nullable = false, unique = true)
-    private Date timeCreate;
+    private Date timeCreated;
 
 
     // Getters and Setters
     //ExpenseId
-    public Integer getBudgetId() {
-        return budgetId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBudgetId(Integer budgetId) {
-        this.budgetId = budgetId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     //UserID
@@ -56,10 +52,10 @@ public class Budget {
 
     //Category
     public Date getTimeCreate() {
-        return timeCreate;
+        return timeCreated;
     }
 
     public void setTimeCreate(Date timeCreate) {
-        this.timeCreate = timeCreate;
+        this.timeCreated = timeCreate;
     }
 }
