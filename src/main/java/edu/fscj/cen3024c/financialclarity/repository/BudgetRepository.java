@@ -10,4 +10,6 @@ import java.util.List;
 public interface BudgetRepository extends JpaRepository<Budget, Integer> {
     // Find all Users
     List<Budget> findAll();
+    Budget findByBudgetName(String budgetName);
+    void deleteByBudgetName(String budgetName);
 }

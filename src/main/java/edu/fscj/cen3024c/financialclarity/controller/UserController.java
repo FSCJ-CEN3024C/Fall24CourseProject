@@ -22,42 +22,33 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Convert User entity to UserDTO
     private UserDTO convertToDTO(User user) {
         return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpences() );
     }
 
-
-    // Getting all users
     @GetMapping
     public List<UserDTO> getAllUsers() {
         List<User> users = userService.findAll();
         return users.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // Getting Users by username
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         User user = userService.findByUsername(username);
-        return ResponseEntity.ok(user);
+        UserDTO userDTO = convertToDTO(user);
+        return ResponseEntity.ok(userDTO);
     }
 
-    // Creating user
     @PostMapping()
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         UserDTO savedUser = userService.save(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
-
     }
 
-    // Updating user
     @PutMapping("{username}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String username, @RequestBody UserDTO userDTO) {
-        User existingUser = userService.findByUsername(username);
-
-        if  (existingUser != null) {
-            //User user = existingUser.get();
-            User user = existingUser;
+        User user = userService.findByUsername(username);
+        if  (user != null) {
             user.setUsername(userDTO.getUsername());
             user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
@@ -69,10 +60,8 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
-    // Deleting user by username
     @DeleteMapping("{username}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable String username) {
         userService.deleteByUsername(username);
