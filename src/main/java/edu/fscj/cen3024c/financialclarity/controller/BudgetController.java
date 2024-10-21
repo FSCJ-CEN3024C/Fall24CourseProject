@@ -27,6 +27,8 @@ public class BudgetController {
         return new BudgetDTO(budget.getId(), budget.getUserId(), budget.getBudgetName(), budget.getTimeCreate());
     }
 
+    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
+
     @GetMapping
     public List<BudgetDTO> getAllBudgets() {
         List<Budget> budgets = budgetService.findAll();

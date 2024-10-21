@@ -11,5 +11,5 @@ public class RepaymentPlanService {
     @Autowired
     private RepaymentPlanRepository repaymentPlanRepository;
 
-    public RepaymentPlan findByRepaymentId(Integer repaymentId) {return repaymentPlanRepository.findByRepaymentId(repaymentId);}
+    public RepaymentPlan findByPlanId(Integer planId) {return repaymentPlanRepository.findByPlanId(planId);}
 }
