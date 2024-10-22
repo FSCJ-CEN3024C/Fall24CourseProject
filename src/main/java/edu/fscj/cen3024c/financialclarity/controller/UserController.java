@@ -26,6 +26,8 @@ public class UserController {
         return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpences() );
     }
 
+    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
+
     @GetMapping
     public List<UserDTO> getAllUsers() {
         List<User> users = userService.findAll();

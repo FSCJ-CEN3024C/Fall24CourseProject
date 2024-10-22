@@ -6,20 +6,19 @@ import edu.fscj.cen3024c.financialclarity.service.RepaymentPlanService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/savings")
-public class RepaymentPlanController {
+@RequestMapping("/repaymentPlan ")
+public class
+RepaymentPlanController {
     @Autowired
     private RepaymentPlanService repaymentPlanService;
 
-    @GetMapping("/{savingsId}")
-    public ResponseEntity<RepaymentPlan> getRepaymentByRepaymentId(@PathVariable Integer repaymentId) {
-        RepaymentPlan repaymentPlan = repaymentPlanService.findByRepaymentId(repaymentId);
+    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
+    @GetMapping("/{planId}")
+    public ResponseEntity<RepaymentPlan> getRepaymentByPlanId(@PathVariable Integer planId) {
+        RepaymentPlan repaymentPlan = repaymentPlanService.findByPlanId(planId);
         return ResponseEntity.ok(repaymentPlan);
     }
 }

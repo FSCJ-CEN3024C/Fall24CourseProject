@@ -9,10 +9,7 @@ import edu.fscj.cen3024c.financialclarity.service.ExpenseService;
 import edu.fscj.cen3024c.financialclarity.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/expenses")
@@ -20,6 +17,7 @@ public class ExpensesController {
     @Autowired
     private ExpenseService expenseService;
 
+    @CrossOrigin(origins = {"http://example.com", "http://localhost"})
     @GetMapping("/{expensesId}")
     public ResponseEntity<Expenses> getIncome(@PathVariable Integer expensesId) {
 
