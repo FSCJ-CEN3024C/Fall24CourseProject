@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     private UserDTO convertToDTO(User user) {
-        return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpences() );
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpences() );
     }
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
@@ -52,7 +52,6 @@ public class UserController {
         User user = userService.findByUsername(username);
         if  (user != null) {
             user.setUsername(userDTO.getUsername());
-            user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
             user.setAge(userDTO.getAge());
             user.setTotalIncome(userDTO.getTotalIncome());

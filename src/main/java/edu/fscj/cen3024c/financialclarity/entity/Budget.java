@@ -18,7 +18,7 @@ public class Budget {
     @Column(nullable = false, unique = true)
     private String budgetName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private Date timeCreated;
 
 
