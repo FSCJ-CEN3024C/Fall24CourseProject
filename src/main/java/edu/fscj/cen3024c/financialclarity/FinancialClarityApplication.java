@@ -52,7 +52,8 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		user1.setUsername("Cole");
 		user1.setAge(20);
 		user1.setEmail("test@example.com");
-		user1.setPassword("pass");
+		user1.setHash("testhash");
+		user1.setSalt("testsalt");
 		user1.setTotalIncome("1000");
 		user1.setTotalExpences("1000");
 		usersRepository.save(user1);
