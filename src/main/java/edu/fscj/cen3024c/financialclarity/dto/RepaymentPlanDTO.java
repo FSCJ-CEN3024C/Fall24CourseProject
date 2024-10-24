@@ -7,16 +7,16 @@ public class RepaymentPlanDTO {
     private Float payment;
     private String timeLine;
     private String category;
-    private String name;
+    private String planName;
 
-    public RepaymentPlanDTO(Integer planId, Integer userId, Float totalExpense, Float payment, String timeLine, String category, String name) {
+    public RepaymentPlanDTO(Integer planId, Integer userId, Float totalExpense, Float payment, String timeLine, String category, String planName) {
         this.planId = planId;
         this.userId = userId;
         this.totalExpense = totalExpense;
         this.payment = payment;
         this.timeLine = timeLine;
         this.category = category;
-        this.name = name;
+        this.planName = planName;
     }
 
     public Integer getPlanId() {
@@ -55,6 +55,6 @@ public class RepaymentPlanDTO {
     public void setCategory(String category) {
         this.category = category;
     }
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public String getName() {return planName;}
+    public void setName(String planName) {this.planName = planName;}
     }
