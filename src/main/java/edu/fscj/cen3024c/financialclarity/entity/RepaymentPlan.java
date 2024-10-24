@@ -28,7 +28,7 @@ public class RepaymentPlan {
     private String category;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String planName;
 
 
     // Getters and Setters
@@ -83,12 +83,12 @@ public class RepaymentPlan {
         this.category = category;
     }
 
-    public String getName() {
-        return name;
+    public String getPlanName() {
+        return planName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlanName(String planName) {
+        this.planName = planName;
     }
 
 }

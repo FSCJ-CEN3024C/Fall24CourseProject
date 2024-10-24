@@ -10,6 +10,7 @@ import java.util.List;
 public interface RepaymentPlanRepository extends JpaRepository<RepaymentPlan, Integer> {
     // Find all Incomes
     List<RepaymentPlan> findAll();
-    RepaymentPlan findByPlanId(Integer expenseId);
+    RepaymentPlan findByPlanName(String planName);
+    void deleteByPlanName(String planName);
 
 }

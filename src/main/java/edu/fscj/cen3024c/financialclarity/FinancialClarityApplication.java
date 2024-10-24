@@ -81,7 +81,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		// Create RepaymentPlan
 		RepaymentPlan repaymentPlan = new RepaymentPlan();
 		repaymentPlan.setUserId(user1.getId());
-		repaymentPlan.setName("Auto Loan Payment");
+		repaymentPlan.setPlanName("Auto Loan Payment");
 		repaymentPlan.setTotalExpense(19999.99f);
 		repaymentPlan.setPayment(450.00f);
 		repaymentPlan.setTimeLine("40 months");
@@ -111,7 +111,7 @@ public class FinancialClarityApplication implements CommandLineRunner {
 		// Print all Repayment plan
 		List<RepaymentPlan> repaymentPlans = repaymentPlanRepository.findAll();
 		System.out.println("All repayment plan in the database:");
-		repaymentPlans.forEach(income -> System.out.println(repaymentPlan.getName() + " " + repaymentPlan.getTotalExpense()));
+		repaymentPlans.forEach(income -> System.out.println(repaymentPlan.getPlanName() + " " + repaymentPlan.getTotalExpense()));
 
 	}
 }
