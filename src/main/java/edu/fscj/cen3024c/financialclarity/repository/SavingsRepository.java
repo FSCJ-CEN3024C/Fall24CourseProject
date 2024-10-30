@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SavingsRepository extends JpaRepository<Savings, Integer> {
     List<Savings> findAll();
-
     Savings findBySavingsId(Integer savingsId);
+    void deleteBySavingsId(Integer savingsId);
 }
 
