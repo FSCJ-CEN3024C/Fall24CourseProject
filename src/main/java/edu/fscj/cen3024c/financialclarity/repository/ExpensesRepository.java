@@ -12,4 +12,5 @@ public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
     List<Expenses> findAll();
 
     Expenses findByExpenseId(Integer expenseId);
+    void deleteByExpenseId(Integer expenseId);
 }

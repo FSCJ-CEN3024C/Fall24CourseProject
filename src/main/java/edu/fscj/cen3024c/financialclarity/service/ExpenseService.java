@@ -1,13 +1,12 @@
 package edu.fscj.cen3024c.financialclarity.service;
 
 import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
-import edu.fscj.cen3024c.financialclarity.dto.UserDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
-
-import edu.fscj.cen3024c.financialclarity.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 import edu.fscj.cen3024c.financialclarity.repository.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -18,20 +17,26 @@ public class ExpenseService {
     private ExpensesRepository expensesRepository;
     public Expenses findByExpencesId(Integer expensesId) {return expensesRepository.findByExpenseId(expensesId);}
     public List<Expenses> findAll() {return expensesRepository.findAll();}
+    @Transactional
+    public void deleteByExpenses(Integer expensesId) {expensesRepository.deleteByExpenseId(expensesId);}
     public Expenses save(Expenses expenses ) { return expensesRepository.save(expenses); }
     public ExpensesDTO save(ExpensesDTO expensesDTO) {
         // Convert ExpenseDTO to Expense entity
         Expenses expenses = new Expenses();
-        expenses.setExpenseId(ExpensesDTO.getExpenseId());
-        expenses.setUserId(ExpensesDTO.getUserId());
-        expenses.setAmount(ExpensesDTO.getAmount());
-        expenses.setName(ExpensesDTO.getName());
+        expenses.setExpenseId(expensesDTO.getExpenseId());
+        expenses.setUserId(expensesDTO.getUserId());
+        expenses.setAmount(expensesDTO.getAmount());
+        expenses.setName(expensesDTO.getName());
 
         // Save the User entity
         Expenses savedExpenses = expensesRepository.save(expenses);
 
         // Convert saved User entity back to UserDTO and return
         return convertToDTO(savedExpenses);
+    }
+
+    private ExpensesDTO convertToDTO(Expenses expenses) {
+        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUserId(), expenses.getAmount(), expenses.getName());
     }
 }
 

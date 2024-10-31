@@ -42,9 +42,30 @@ public class ExpensesController {
     }
 
     @PostMapping()
-    public ResponseEntity<ExpensesDTO> createUser(@RequestBody ExpensesDTO expensesDTO) {
-        ExpensesDTO savedExpense = expenseService.save(ExpensesDTO);
+    public ResponseEntity<ExpensesDTO> createExpenses(@RequestBody ExpensesDTO expensesDTO) {
+        ExpensesDTO savedExpense = expenseService.save(expensesDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedExpense);
+    }
+
+    @PutMapping("{expensesId}")
+    public ResponseEntity<ExpensesDTO> updateExpenses(@PathVariable Integer expensesId, @RequestBody ExpensesDTO expensesDTO) {
+        Expenses expenses = expenseService.findByExpencesId(expensesId);
+        if  (expenses != null) {
+            expenses.setExpenseId(expensesDTO.getExpenseId());
+            expenses.setUserId(expensesDTO.getUserId());
+            expenses.setAmount(expensesDTO.getAmount());
+            expenses.setName(expensesDTO.getName());
+            Expenses updatedExpenses = expenseService.save(expenses);
+            return new ResponseEntity<>(convertToDTO(updatedExpenses), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("{expensesId}")
+    public ResponseEntity<ExpensesDTO> deleteExpenses(@PathVariable Integer expensesId) {
+        expenseService.deleteByExpenses(expensesId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
