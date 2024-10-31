@@ -1,11 +1,16 @@
 package edu.fscj.cen3024c.financialclarity.controller;
 
+import edu.fscj.cen3024c.financialclarity.dto.IncomeDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
 import edu.fscj.cen3024c.financialclarity.service.IncomeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -14,11 +19,48 @@ public class IncomeController {
     @Autowired
     private IncomeService incomeService;
 
+    private IncomeDTO convertToDTO(Income income) {
+        return new IncomeDTO(income.getIncomeId(), income.getUserId(), income.getAmount(), income.getName());
+    }
+
+    @GetMapping()
+    public List<IncomeDTO> getAllIncomes() {
+        List<Income> income = incomeService.findAll();
+        return income.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
     @GetMapping("/{incomeId}")
-    public ResponseEntity<Income> getIncome(@PathVariable int incomeId) {
+    public ResponseEntity<IncomeDTO> getIncome(@PathVariable int incomeId) {
         Income income = incomeService.findIncomeById(incomeId);
-        return ResponseEntity.ok(income);
+        IncomeDTO incomeDTO = convertToDTO(income);
+        return ResponseEntity.ok(incomeDTO);
+    }
+
+    @PostMapping()
+    public ResponseEntity<IncomeDTO> getIncome(@RequestBody IncomeDTO incomeDTO) {
+        IncomeDTO savedIncomeDTO = incomeService.save(incomeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedIncomeDTO);
+    }
+
+    @PutMapping("/{incomeId}")
+    public ResponseEntity<IncomeDTO> updateIncome(@PathVariable int incomeId, @RequestBody IncomeDTO incomeDTO) {
+        Income income = incomeService.findIncomeById(incomeId);
+        if (income != null) {
+            income.setAmount(incomeDTO.getAmount());
+            income.setName(incomeDTO.getName());
+            income.setUserId(incomeDTO.getUserId());
+            IncomeDTO updatedIncome = incomeService.save(convertToDTO(income));
+            return new ResponseEntity<>(updatedIncome, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{incomeId}")
+    public ResponseEntity<IncomeDTO> deleteIncome(@PathVariable int incomeId) {
+        incomeService.deleteById(incomeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
