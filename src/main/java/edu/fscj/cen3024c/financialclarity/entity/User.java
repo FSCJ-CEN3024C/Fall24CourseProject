@@ -23,7 +23,7 @@ public class User {
     private String totalIncome;
 
     @Column(nullable = false)
-    private String totalExpences;
+    private String totalExpenses;
 
     @Column(nullable = false)
     private String salt;
@@ -35,12 +35,12 @@ public class User {
         // Default constructor
     }
 
-    public User(String username, Integer age, String email, String password, String totalIncome, String totalExpences) {
+    public User(String username, Integer age, String email, String password, String totalIncome, String totalExpenses) {
         this.username = username;
         this.age = age;
         this.email = email;
         this.totalIncome = totalIncome;
-        this.totalExpences = totalExpences;
+        this.totalExpenses = totalExpenses;
 
     }
 
@@ -59,8 +59,8 @@ public class User {
     public String getTotalIncome() {return totalIncome;}
     public void setTotalIncome(String totalIncome) {this.totalIncome = totalIncome;}
 
-    public String getTotalExpences() {return totalExpences;}
-    public void setTotalExpences(String totalExpences) {this.totalExpences = totalExpences;}
+    public String getTotalExpenses() {return totalExpenses;}
+    public void setTotalExpenses(String totalExpenses) {this.totalExpenses = totalExpenses;}
 
     public String getSalt() {return salt;}
     public void setSalt(String salt) {this.salt = salt;}

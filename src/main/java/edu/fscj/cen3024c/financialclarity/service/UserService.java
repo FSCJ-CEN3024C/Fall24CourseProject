@@ -44,7 +44,7 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setAge(userDTO.getAge());
         user.setTotalIncome(userDTO.getTotalIncome());
-        user.setTotalExpences(userDTO.getTotalExpense());
+        user.setTotalExpenses(userDTO.getTotalExpense());
 
         // Generate salt and hash the password
         String salt = generateSalt();
@@ -62,7 +62,7 @@ public class UserService {
     }
 
     private UserDTO convertToDTO(User user) {
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpences() );
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getAge(), user.getTotalIncome(), user.getTotalExpenses() );
     }
 
     // Password hashing logic
