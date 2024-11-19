@@ -10,6 +10,8 @@ public class UserDTO {
     private String totalExpense;
 
 
+    public UserDTO(){}
+
     public UserDTO(Integer id, String username, String email, Integer age, String totalIncome, String totalExpense) {
         this.id = id;
         this.username = username;
