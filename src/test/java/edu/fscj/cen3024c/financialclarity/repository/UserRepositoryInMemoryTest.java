@@ -24,7 +24,6 @@ public class UserRepositoryInMemoryTest {
     public void saveUser_ShouldPersistUserInDatabase() {
 
         User user = new User();
-        user.setId(1);
         user.setUsername("Tom1");
         user.setEmail("tom1gmail.com");
         user.setAge(21);
@@ -54,7 +53,7 @@ public class UserRepositoryInMemoryTest {
 
         entityManager.persistAndFlush(user);
 
-        User foundUser = userRepository.findByUsername("Tom");
+        User foundUser = userRepository.findByUsername("Tom2");
 
         assertThat(foundUser).isNotNull();
         assertThat(foundUser).isEqualTo(user);

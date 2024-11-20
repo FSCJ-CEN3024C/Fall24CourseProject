@@ -15,7 +15,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -29,7 +29,13 @@ public class UserService {
     private static final int HASH_ITERATIONS = 10000;
     private static final int HASH_KEY_LENGTH = 256; // 256 bits
 
-    public List<User> findAll() { return userRepository.findAll(); }
+    public List<User> findAll() { return userRepository.findAll(); }    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
+    }
+    public void deleteById(Integer id) {
+        userRepository.deleteById(id);
+    }
+
     public User findByUsername(String username) {return userRepository.findByUsername(username);}
 
     @Transactional
