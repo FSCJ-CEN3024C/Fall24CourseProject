@@ -5,6 +5,7 @@ import edu.fscj.cen3024c.financialclarity.dto.ExpensesDTO;
 import edu.fscj.cen3024c.financialclarity.dto.UserDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Expenses;
 import edu.fscj.cen3024c.financialclarity.entity.User;
+import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.ExpenseService;
 
 
@@ -24,8 +25,11 @@ public class ExpensesController {
     @Autowired
     private ExpenseService expenseService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private ExpensesDTO convertToDTO(Expenses expenses) {
-        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUserId(), expenses.getAmount(), expenses.getName());
+        return new ExpensesDTO(expenses.getExpenseId(), expenses.getUser().getId(), expenses.getAmount(), expenses.getName());
     }
     @GetMapping
     public List<ExpensesDTO> getAllUsers() {
@@ -51,8 +55,10 @@ public class ExpensesController {
     public ResponseEntity<ExpensesDTO> updateExpenses(@PathVariable Integer expensesId, @RequestBody ExpensesDTO expensesDTO) {
         Expenses expenses = expenseService.findByExpencesId(expensesId);
         if  (expenses != null) {
+            User user = userRepository.findById(expensesDTO.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));;
             expenses.setExpenseId(expensesDTO.getExpenseId());
-            expenses.setUserId(expensesDTO.getUserId());
+            expenses.setUser(user);
             expenses.setAmount(expensesDTO.getAmount());
             expenses.setName(expensesDTO.getName());
             Expenses updatedExpenses = expenseService.save(expenses);
