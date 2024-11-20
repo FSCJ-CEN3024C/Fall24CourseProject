@@ -10,8 +10,10 @@ public class Expenses {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer expenseId;
 
-    @Column(nullable = false, unique = true)
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+//    @Column(nullable = false, unique = true)
+    private User user;
 
     @Column(nullable = false, unique = true)
     private Float amount;
@@ -32,12 +34,12 @@ public class Expenses {
     }
 
     //UserID
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //Amount
