@@ -12,7 +12,6 @@ public class Expenses {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-//    @Column(nullable = false, unique = true)
     private User user;
 
     @Column(nullable = false, unique = true)

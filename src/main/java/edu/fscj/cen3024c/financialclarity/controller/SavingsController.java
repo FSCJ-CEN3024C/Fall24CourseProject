@@ -2,6 +2,8 @@ package edu.fscj.cen3024c.financialclarity.controller;
 
 import edu.fscj.cen3024c.financialclarity.dto.SavingsDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Savings;
+import edu.fscj.cen3024c.financialclarity.entity.User;
+import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.SavingsService;
 
 
@@ -20,10 +22,13 @@ public class SavingsController {
     @Autowired
     private SavingsService savingsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(SavingsController.class);
 
     private SavingsDTO convertToDTO(Savings savings) {
-        return new SavingsDTO(savings.getSavingsId(), savings.getSavingsamount(), savings.getUserid(), savings.getDescription());
+        return new SavingsDTO(savings.getSavingsId(), savings.getSavingsamount(), savings.getUser().getId(), savings.getDescription());
     }
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
@@ -47,12 +52,14 @@ public class SavingsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSavings);
     }
 
-    @PostMapping("savingID")
+    @PutMapping("savingID")
     public ResponseEntity<SavingsDTO> updateSavings(@PathVariable Integer savingsID, @RequestBody SavingsDTO savingsDTO) {
         Savings savings = savingsService.findBySavingsById(savingsID);
         if (savings != null) {
+            User user = userRepository.findById(savingsDTO.getUserid())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
             savings.setSavingsamount(savingsDTO.getSavingsAmount());
-            savings.setUserid(savingsDTO.getUserid());
+            savings.setUser(user);
             savings.setDescription(savingsDTO.getDescription());
             logger.info("A users savings has been updated: {}", savingsID);
             return new ResponseEntity<>(convertToDTO(savingsService.save(savings)), HttpStatus.OK);

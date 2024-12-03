@@ -2,6 +2,8 @@ package edu.fscj.cen3024c.financialclarity.controller;
 
 import edu.fscj.cen3024c.financialclarity.dto.IncomeDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Income;
+import edu.fscj.cen3024c.financialclarity.entity.User;
+import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.IncomeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,11 @@ public class IncomeController {
     @Autowired
     private IncomeService incomeService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private IncomeDTO convertToDTO(Income income) {
-        return new IncomeDTO(income.getIncomeId(), income.getUserId(), income.getAmount(), income.getName());
+        return new IncomeDTO(income.getIncomeId(), income.getUser().getId(), income.getAmount(), income.getName());
     }
 
     @GetMapping()
@@ -47,9 +52,12 @@ public class IncomeController {
     public ResponseEntity<IncomeDTO> updateIncome(@PathVariable int incomeId, @RequestBody IncomeDTO incomeDTO) {
         Income income = incomeService.findIncomeById(incomeId);
         if (income != null) {
+            User user = userRepository.findById(incomeDTO.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
             income.setAmount(incomeDTO.getAmount());
             income.setName(incomeDTO.getName());
-            income.setUserId(incomeDTO.getUserId());
+            income.setUser(user);
             IncomeDTO updatedIncome = incomeService.save(convertToDTO(income));
             return new ResponseEntity<>(updatedIncome, HttpStatus.OK);
         } else {

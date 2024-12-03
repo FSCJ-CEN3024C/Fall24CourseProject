@@ -3,6 +3,7 @@ package edu.fscj.cen3024c.financialclarity.controller;
 import edu.fscj.cen3024c.financialclarity.dto.BudgetDTO;
 import edu.fscj.cen3024c.financialclarity.entity.Budget;
 import edu.fscj.cen3024c.financialclarity.entity.User;
+import edu.fscj.cen3024c.financialclarity.repository.UserRepository;
 import edu.fscj.cen3024c.financialclarity.service.BudgetService;
 
 import edu.fscj.cen3024c.financialclarity.service.UserService;
@@ -28,10 +29,13 @@ public class BudgetController {
     @Autowired
     private BudgetService budgetService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(BudgetController.class);
 
     private BudgetDTO convertToDTO(Budget budget) {
-        return new BudgetDTO(budget.getId(), budget.getUserId(), budget.getBudgetName(), budget.getTimeCreate());
+        return new BudgetDTO(budget.getId(), budget.getUser().getId(), budget.getBudgetName(), budget.getTimeCreate());
     }
 
     @CrossOrigin(origins = {"http://example.com", "http://localhost"})
@@ -71,8 +75,10 @@ public class BudgetController {
     public ResponseEntity<BudgetDTO> updateBudget(@PathVariable String budgetName, @RequestBody BudgetDTO budgetDTO) {
         Budget budget = budgetService.findByBudgetName(budgetName);
         if (budget != null) {
+            User user = userRepository.findById(budgetDTO.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
             budget.setBudgetName(budgetDTO.getBudgetName());
-            budget.setUserId(budgetDTO.getUserId());
+            budget.setUser(user);
             Budget updatedBudget = budgetService.save(budget);
             logger.info("A budget has been updated: {}", budgetName);
             return new ResponseEntity<>(convertToDTO(updatedBudget), HttpStatus.OK);

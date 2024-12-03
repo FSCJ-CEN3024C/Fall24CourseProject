@@ -28,7 +28,7 @@ public class ExpenseService {
     public Expenses save(Expenses expenses ) { return expensesRepository.save(expenses); }
     public ExpensesDTO save(ExpensesDTO expensesDTO) {
         User user = userRepository.findById(expensesDTO.getUserId())
-                        .orElseThrow(() -> new RuntimeException("User not found"));;
+                        .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Convert ExpenseDTO to Expense entity
         Expenses expenses = new Expenses();

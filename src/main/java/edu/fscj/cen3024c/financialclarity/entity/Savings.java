@@ -12,8 +12,10 @@ public class Savings {
     @Column(name = "savingsamount")
     private Integer savingsamount;
 
-    @Column(name = "userid", nullable = false)
-    private Integer userid;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
@@ -22,10 +24,10 @@ public class Savings {
         // This is the default constructor
     }
 
-    public Savings(Integer savingsId, Integer savingsamount, Integer userid, String description) {
+    public Savings(Integer savingsId, Integer savingsamount, User user, String description) {
         this.savingsId = savingsId;
         this.savingsamount = savingsamount;
-        this.userid = userid;
+        this.user = user;
         this.description = description;
     }
 
@@ -43,11 +45,11 @@ public class Savings {
         this.savingsamount = savingsamount;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
