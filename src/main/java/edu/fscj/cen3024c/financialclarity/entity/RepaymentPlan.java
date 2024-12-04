@@ -12,8 +12,10 @@ public class RepaymentPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer planId;
 
-    @Column(nullable = false, unique = true)
-    private Integer userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false, unique = true)
     private Float totalExpense;
@@ -41,13 +43,13 @@ public class RepaymentPlan {
         this.planId = planId;
     }
 
-    //UserID
-    public Integer getUserId() {
-        return userId;
+    //User
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Float getTotalExpense() {
